@@ -4,7 +4,14 @@ import json
 f = open('./groups.json')
 groups = json.load(f)
 
-groups.sort(reverse=True)
+
+def preprocess(something):
+    something = str(something)
+    output = []
+    for x in range(len(something)):
+        output.append(something[x])
+    return output
+
 
 pyautogui.PAUSE = 2
 pyautogui.FAILSAFE = True
@@ -23,7 +30,7 @@ for group in groups:
                     button='left')  # click on share to a group
     pyautogui.click(x=600, y=433, clicks=3, interval=0.25,
                     button='left')  # click on search box
-    pyautogui.write(group)  # type group name
+    pyautogui.typewrite(group, interval=0.25)
     pyautogui.click(x=815, y=527, clicks=1, interval=0.25,
                     button='left')  # click on first result
     pyautogui.moveTo(x=837, y=912)  # move cursor on post
