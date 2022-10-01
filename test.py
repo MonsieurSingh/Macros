@@ -1,7 +1,11 @@
+from email.mime import image
 import pyperclip
 import json
 import pyautogui
+import glob
+
 import pyautogui as py
+from PIL import Image
 
 # pyautogui.displayMousePosition()
 
@@ -51,4 +55,70 @@ import pyautogui as py
 
 # print(preprocess(text_with_special_chars))
 
-pyautogui.press('d')
+
+pyautogui.PAUSE = 2
+pyautogui.FAILSAFE = True
+
+screenWidth, screenHeight = pyautogui.size()
+print(screenWidth, screenHeight)
+
+pyautogui.press('ctrl')
+pyautogui.hotkey('ctrl', 'left')
+pyautogui.press('space')
+
+coordArr = []
+
+images = glob.glob('ImagesDT/*.png')
+images.sort()
+print(images)
+
+iteration = -1
+
+try:
+    for idx, image in enumerate(images):
+        clickHere = list(pyautogui.locateCenterOnScreen(
+            image, confidence=0.9))
+        print(clickHere)
+        clickHereX = clickHere[0]
+        clickHereY = clickHere[1]
+        if idx == 4:
+            clickHereY = clickHereY + 40
+        coords = tuple([clickHereX, clickHereY])
+        pyautogui.click(coords)
+        print(coords)
+        coordArr.append(coords)
+        iteration = idx
+except:
+    if iteration == 1:
+        for idx, image in enumerate(images):
+            if idx == 1:
+                continue
+            clickHere = list(pyautogui.locateCenterOnScreen(
+                image, confidence=0.9))
+            clickHereX = clickHere[0]
+            clickHereY = clickHere[1]
+            if idx == 4:
+                clickHereY = clickHereY + 100
+            coords = tuple([clickHereX, clickHereY])
+            pyautogui.click(coords)
+            if idx == 3:
+                pyautogui.write("coords")
+            coordArr.append(coords)
+            iteration = idx
+        print('No second image found')
+    print('No image found')
+finally:
+    print(coordArr)
+
+
+# pyautogui.moveTo(clickHereX, clickHereY, duration=0.25)
+
+# print(clickHereX, clickHereY)
+# pyautogui.click(clickHereX, clickHereY)
+
+# for item in clickHere:
+#     process_item(item)
+#     x, y, width, height = item
+#     print(x, y, width, height)
+# print(clickHere - pyautogui.size())
+# pyautogui.click(clickHere)
