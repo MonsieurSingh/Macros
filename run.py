@@ -8,6 +8,7 @@ groups.sort(reverse=True)
 
 pyautogui.PAUSE = 2
 pyautogui.FAILSAFE = True
+pyautogui.DARWIN_CATCH_UP_TIME
 
 screenWidth, screenHeight = pyautogui.size()
 print(screenWidth, screenHeight)
@@ -66,6 +67,34 @@ try:
         coordArr.append(coords)
         print(idx)
         iteration = idx
+
+        def clickAll():
+            x1, y1 = coordArr[0]
+            x2, y2 = coordArr[1]
+            x3, y3 = coordArr[2]
+            x4, y4 = coordArr[3]
+            x5, y5 = coordArr[4]
+            x6, y6 = coordArr[5]
+
+            for group in groups:
+                pyautogui.click(x1, y1)  # click on share button
+                pyautogui.click(x2, y2)  # click on more options
+                pyautogui.click(x3, y3)  # click on share to a group
+                pyautogui.click(x4, y4)  # click on search box
+                pyautogui.write(group)
+                pyautogui.click(x5, y5)  # click on first result
+                pyautogui.click(x6, y6, interval=2)  # move cursor on post
+                # click on the empty space
+                pyautogui.click(0+100, screenHeight-100)
+                # click on the empty space
+                pyautogui.click(0+100, screenHeight-100)
+                # click on the empty space
+                pyautogui.click(0+100, screenHeight-100)
+                print(group + " - " + str(len(group)))
+
+            with pyautogui.hold('shift'):
+                pyautogui.press('space')
+            pyautogui.hotkey('ctrl', 'right')
 except:
     if iteration == 1:
         for idx, image in enumerate(images):
@@ -93,37 +122,42 @@ except:
     elif idx == 4:
         print('Incorrect keywords')
     print('No image found')
+
+    def clickAll():
+        x1, y1 = coordArr[0]
+        x2, y2 = coordArr[1]
+        x3, y3 = coordArr[2]
+        x4, y4 = coordArr[3]
+        x5, y5 = coordArr[4]
+        x6, y6 = coordArr[5]
+
+        for group in groups:
+            pyautogui.click(x1, y1)  # click on share button
+            pyautogui.click(x2, y2)  # click on more options
+            pyautogui.click(x3, y3)  # click on share to a group
+            pyautogui.click(x4, y4)  # click on search box
+            pyautogui.write(group)
+            pyautogui.click(x5, y5)  # click on first result
+            pyautogui.click(x6, y6, interval=2)  # move cursor on post
+            # click on the empty space
+            pyautogui.click(0+100, screenHeight-100)
+            # click on the empty space
+            pyautogui.click(0+100, screenHeight-100)
+            # click on the empty space
+            pyautogui.click(0+100, screenHeight-100)
+            print(group + " - " + str(len(group)))
+
+        with pyautogui.hold('shift'):
+            pyautogui.press('space')
+        pyautogui.hotkey('ctrl', 'right')
 finally:
     print(coordArr)
+    clickAll()
 
 
 # --------------------------------------------------------------------------------------------------------------
 
 # Click the coordinates of the all the buttons
-
-x1, y1 = coordArr[0]
-x2, y2 = coordArr[1]
-x3, y3 = coordArr[2]
-x4, y4 = coordArr[3]
-x5, y5 = coordArr[4]
-x6, y6 = coordArr[5]
-
-for group in groups:
-    pyautogui.click(x1, y1)  # click on share button
-    pyautogui.click(x2, y2)  # click on more options
-    pyautogui.click(x3, y3)  # click on share to a group
-    pyautogui.click(x4, y4)  # click on search box
-    pyautogui.write(group)
-    pyautogui.click(x5, y5)  # click on first result
-    pyautogui.click(x6, y6, interval=2)  # move cursor on post
-    pyautogui.click(0+100, screenHeight-100)  # click on the empty space
-    pyautogui.click(0+100, screenHeight-100)  # click on the empty space
-    pyautogui.click(0+100, screenHeight-100)  # click on the empty space
-    print(group + " - " + str(len(group)))
-
-with pyautogui.hold('shift'):
-    pyautogui.press('space')
-pyautogui.hotkey('ctrl', 'right')
 
 
 # x=1448, y=985 Share
